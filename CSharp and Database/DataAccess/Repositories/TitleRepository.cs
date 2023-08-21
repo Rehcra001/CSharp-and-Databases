@@ -47,7 +47,7 @@ namespace DataAccess.Repositories
                 {
                     command.Connection = connection;
                     command.CommandType = CommandType.StoredProcedure;
-                    command.CommandText = "dbo.usp_DeleteTilte";
+                    command.CommandText = "dbo.usp_DeleteTitle";
                     command.Parameters.AddWithValue("@ISBN", isbn);
                     connection.Open();
                     command.ExecuteNonQuery();
