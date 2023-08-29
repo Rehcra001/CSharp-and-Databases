@@ -9,10 +9,11 @@ namespace DataAccess.Interfaces
 {
     public interface ITitleRepository
     {
-        void Add(TitleModel title);
-        void Edit(TitleModel title);
-        void Delete(string isbn);
+        string Add(TitleModel title);
+        string Edit(TitleModel title);
+        string Delete(string isbn);
         IEnumerable<TitleModel> GetAll();
         IEnumerable<TitleModel> GetByValue(string searchValue);
+        TitleModel GetTitleByISBN(string ISBN);
     }
 }

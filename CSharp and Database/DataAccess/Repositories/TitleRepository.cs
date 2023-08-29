@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace DataAccess.Repositories
 {
@@ -16,10 +17,12 @@ namespace DataAccess.Repositories
         {
             _connectionString = connectionString;
         }
-        public void Add(TitleModel title)
+
+        public string Add(TitleModel title)
         {
+            string? _errorMessage = null; //Check for error messages sent via sql server
             using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
+            {                
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = connection;
@@ -34,13 +37,22 @@ namespace DataAccess.Repositories
                     command.Parameters.AddWithValue("@Subject", title.Subject);
                     command.Parameters.AddWithValue("@Comments", title.Comments);
                     connection.Open();
-                    command.ExecuteNonQuery();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            _errorMessage = reader["Message"].ToString();
+                        }
+                    }
                 }
             }
+
+            return _errorMessage;
         }
 
-        public void Delete(string isbn)
+        public string Delete(string isbn)
         {
+            string? _errorMessage = null; //Check for error messages sent via sql server
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 using (SqlCommand command = new SqlCommand())
@@ -50,20 +62,29 @@ namespace DataAccess.Repositories
                     command.CommandText = "dbo.usp_DeleteTitle";
                     command.Parameters.AddWithValue("@ISBN", isbn);
                     connection.Open();
-                    command.ExecuteNonQuery();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            _errorMessage = reader["Message"].ToString();
+                        }
+                    }
                 }
             }
+
+            return _errorMessage;
         }
 
-        public void Edit(TitleModel title)
+        public string Edit(TitleModel title)
         {
+            string? _errorMessage = null; //Check for error messages sent via sql server
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = connection;
                     command.CommandType = CommandType.StoredProcedure;
-                    command.CommandText = "dbo.usp_AddTitle";
+                    command.CommandText = "dbo.usp_UpdateTitle";
                     command.Parameters.AddWithValue("@Title", title.Title);
                     command.Parameters.AddWithValue("@Year_Published", Convert.ToInt32(title.Year_Published));
                     command.Parameters.AddWithValue("@ISBN", title.ISBN);
@@ -73,9 +94,17 @@ namespace DataAccess.Repositories
                     command.Parameters.AddWithValue("@Subject", title.Subject);
                     command.Parameters.AddWithValue("@Comments", title.Comments);
                     connection.Open();
-                    command.ExecuteNonQuery();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            _errorMessage = reader["Message"].ToString();
+                        }
+                    }
                 }
             }
+
+            return _errorMessage;
         }
 
         public IEnumerable<TitleModel> GetAll()
@@ -91,7 +120,7 @@ namespace DataAccess.Repositories
                     connection.Open();
 
                     using (SqlDataReader reader = command.ExecuteReader())
-                    {                        
+                    {
                         while (reader.Read())
                         {
                             TitleModel title = new TitleModel();
@@ -108,8 +137,7 @@ namespace DataAccess.Repositories
                     }
                 }
             }
-
-                return titles;
+            return titles;
         }
 
         public IEnumerable<TitleModel> GetByValue(string searchValue)
@@ -147,6 +175,38 @@ namespace DataAccess.Repositories
                 }
             }
             return titles;
+        }
+
+        public TitleModel GetTitleByISBN(string ISBN)
+        {
+            TitleModel title = new TitleModel();
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.CommandText = "dbo.usp_GetTitle";
+                    command.Parameters.AddWithValue("@ISBN", ISBN);
+                    connection.Open();
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            title.Title = reader["Title"].ToString();
+                            title.Year_Published = Convert.ToInt32(reader["Year_Published"]);
+                            title.ISBN = reader["ISBN"].ToString();
+                            title.PubID = Convert.ToInt32(reader["PubID"]);
+                            title.Description = reader["Description"].ToString();
+                            title.Notes = reader["Notes"].ToString();
+                            title.Subject = reader["Subject"].ToString();
+                            title.Comments = reader["Comments"].ToString();
+                        }
+                    }
+                }
+            }
+            return title;
         }
     }
 }
