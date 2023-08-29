@@ -1,9 +1,23 @@
 ﻿<Application x:Class="BooksDB_WPF_MVVM.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:BooksDB_WPF_MVVM"
-             StartupUri="MainWindow.xaml">
+             xmlns:viewModel="clr-namespace:BooksDB_WPF_MVVM.ViewModels"
+             xmlns:view="clr-namespace:BooksDB_WPF_MVVM.Views">
     <Application.Resources>
-         
+        <DataTemplate DataType="{x:Type TypeName=viewModel:MainViewModel}">
+            <view:MainView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type TypeName=viewModel:TitleViewModel}">
+            <view:TitleView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type TypeName=viewModel:EditTitleViewModel}">
+            <view:AddEditView/>
+        </DataTemplate>
+
+		<DataTemplate DataType="{x:Type TypeName=viewModel:AddTitleViewModel}">
+			<view:AddEditView/>
+		</DataTemplate>
     </Application.Resources>
 </Application>

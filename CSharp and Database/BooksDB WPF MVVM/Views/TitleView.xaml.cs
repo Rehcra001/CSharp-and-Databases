@@ -13,16 +13,23 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BooksDB_WPF_MVVM
+namespace BooksDB_WPF_MVVM.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for TitleView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class TitleView : UserControl
     {
-        public MainWindow()
+        public TitleView()
         {
             InitializeComponent();
         }
+
+        private void ClearButton_Clicked(object sender, RoutedEventArgs e)
+        {
+            SearchBox.Clear();
+        }
+
+       
     }
 }

@@ -1,0 +1,132 @@
+﻿<UserControl x:Class="BooksDB_WPF_MVVM.Views.AddEditView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BooksDB_WPF_MVVM.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             Background="#FF00FFFF"
+             FontSize="20">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Label Content="{Binding FormHeader}" 
+               Grid.ColumnSpan="2"
+               Grid.Column="0" 
+               Grid.Row="0"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"
+               Margin="0,5,5,5"/>
+
+        <Label Content="Title" Grid.Column="0" Grid.Row="1"/>
+        <TextBox Text="{Binding Title.Title}"
+                 Grid.Column="1"
+                 Grid.Row="1"
+                 Margin="0,5,5,5"/>
+
+        <StackPanel Grid.ColumnSpan="2"
+                    Grid.Column="0"
+                    Grid.Row="2"
+                    Orientation="Horizontal">
+
+            <Label Content="Year Published" Width="150"/>
+            <TextBox Text="{Binding Title.Year_Published}"
+                     Grid.Column="1"
+                     Grid.Row="1"
+                     Margin="0,5,5,5"
+                     Width="100"/>
+
+            <Label Content="ISBN" Width="50"/>
+            <TextBox Text="{Binding Title.ISBN}"
+                     Grid.Column="1"
+                     Grid.Row="1"
+                     Margin="0,5,5,5"
+                     Width="150"/>
+        </StackPanel>
+
+        <StackPanel Grid.ColumnSpan="2"
+                    Grid.Column="0"
+                    Grid.Row="3"
+                    Orientation="Horizontal">
+            <Label Content="Publisher ID" Width="150"/>
+            <TextBox x:Name="txtpubid"
+                     Text="{Binding ElementName=publisher, Path=SelectedItem.PubID}"
+                     Grid.Column="1"
+                     Grid.Row="3"
+                     Margin="0,5,0,5"
+                     Width="100"
+                     HorizontalAlignment="Left"
+                     IsReadOnly="True"/>
+
+            <ComboBox x:Name="publisher" ItemsSource="{Binding Publishers}" 
+                      Margin="5" Width="300" SelectedItem="{Binding Publisher}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="pubid" Text="{Binding PubID}" Margin="5,0,5,0"/>
+                            <TextBlock x:Name="name" Text="{Binding Name}" Margin="5,0,5,0"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </StackPanel>
+
+        <Label Content="Description" Grid.Column="0" Grid.Row="4"/>
+        <TextBox Text="{Binding Title.Description}"
+         Grid.Column="1"
+         Grid.Row="4"
+         Margin="0,5,5,5"/>
+
+        <Label Content="Notes" Grid.Column="0" Grid.Row="5"/>
+        <TextBox Text="{Binding Title.Notes}"
+         Grid.Column="1"
+         Grid.Row="5"
+         Margin="0,5,5,5"/>
+
+        <Label Content="Subject" Grid.Column="0" Grid.Row="6"/>
+        <TextBox Text="{Binding Title.Subject}"
+         Grid.Column="1"
+         Grid.Row="6"
+         Margin="0,5,5,5"/>
+
+        <Label Content="Comments" Grid.Column="0" Grid.Row="7"/>
+        <TextBox Text="{Binding Title.Comments}"
+         Grid.Column="1"
+         Grid.Row="7"
+         Margin="0,5,5,5"/>
+
+        <StackPanel Grid.Column="0"
+                    Grid.Row="8"
+                    Grid.ColumnSpan="2"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
+            
+            <Button Content="Save"
+                    Margin="5"
+                    Width="75"
+                    Command="{Binding SaveTitleCommand}"/>
+            
+            <Button Content="Cancel"
+                    Margin="5"
+                    Width="75"
+                    Command="{Binding CancelCommand}"/>
+        </StackPanel>
+    </Grid>
+</UserControl>
