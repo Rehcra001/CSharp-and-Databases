@@ -9,9 +9,9 @@ namespace DataAccess.Interfaces
 {
     public interface IPublisherRepository
     {
-        void Add(PublisherModel publisher);
-        void Edit(PublisherModel publisher);
-        void Delete(int id);
+        string Add(PublisherModel publisher);
+        string Edit(PublisherModel publisher);
+        string Delete(int id);
         IEnumerable<PublisherModel> GetAll();
         IEnumerable<PublisherModel> GetByValue(string searchValue);
         PublisherModel GetByID(int id);
