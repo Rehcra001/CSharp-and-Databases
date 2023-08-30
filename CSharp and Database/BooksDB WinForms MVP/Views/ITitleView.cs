@@ -16,7 +16,7 @@ namespace BooksDB_WinForms_MVP.Views
         string Description { get; set; }
         string Notes { get; set; }
         string Subject { get; set; }
-        string Comment { get; set; }
+        string Comments { get; set; }
         string SearchValue { get; set; }
         bool IsEdit { get; set; }
         bool IsSuccessful { get; set; }
@@ -31,6 +31,7 @@ namespace BooksDB_WinForms_MVP.Views
         event EventHandler CancelEvent;
 
         //Methods
-        void SetTitleBindingSource(BindingSource titleList);
+        void SetTitleBindingSource(BindingSource titleList, BindingSource pulisherList);
+        void Show();
     }
 }

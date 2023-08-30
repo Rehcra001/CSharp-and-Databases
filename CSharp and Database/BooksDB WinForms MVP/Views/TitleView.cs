@@ -21,6 +21,7 @@ namespace BooksDB_WinForms_MVP.Views
             InitializeComponent();
             AnnotateAndRaiseEvents();
             tabTitle.TabPages.Remove(tabTitleDetailPage);
+            btnCloseTitleView.Click += delegate { this.Close(); };
         }
 
         private void AnnotateAndRaiseEvents()
@@ -97,7 +98,7 @@ namespace BooksDB_WinForms_MVP.Views
         public string Description { get => txtDescription.Text; set => txtDescription.Text = value; }
         public string Notes { get => txtNotes.Text; set => txtNotes.Text = value; }
         public string Subject { get => txtSubject.Text; set => txtSubject.Text = value; }
-        public string Comment { get => txtComments.Text; set => txtComments.Text = value; }
+        public string Comments { get => txtComments.Text; set => txtComments.Text = value; }
         public string SearchValue { get => txtSearch.Text; set => txtSearch.Text = value; }
         public bool IsEdit { get => _isEdit; set => _isEdit = value; }
         public bool IsSuccessful { get => _isSuccessful; set => _isSuccessful = value; }
@@ -110,10 +111,37 @@ namespace BooksDB_WinForms_MVP.Views
         public event EventHandler SaveEvent;
         public event EventHandler CancelEvent;
 
-        public void SetTitleBindingSource(BindingSource titleList)
+        public void SetTitleBindingSource(BindingSource titleList, BindingSource publisherList)
         {
             dgrdTitleList.DataSource = titleList;
+            cmbPublisherName.DataSource = publisherList;
+            cmbPublisherName.DisplayMember = "Name";
+            cmbPublisherName.ValueMember = "PubID";
+            cmbPublisherName.DataBindings.Add("SelectedValue", titleList, "PubID");
+            txtPubID.DataBindings.Add("Text", publisherList, "PubID");
         }
+
+        public static TitleView? _instance;
+        public static TitleView GetInstance(Form parentContainer)
+        {
+            if (_instance == null || _instance.IsDisposed)
+            {
+                _instance = new TitleView();
+                _instance.MdiParent = parentContainer;
+                _instance.FormBorderStyle = FormBorderStyle.None;
+                _instance.Dock = DockStyle.Fill;
+            }
+            else
+            {
+                if (_instance.WindowState == FormWindowState.Minimized)
+                {
+                    _instance.WindowState = FormWindowState.Normal;
+                }
+                _instance.BringToFront();
+            }
+            return _instance;
+        }
+
 
     }
 }

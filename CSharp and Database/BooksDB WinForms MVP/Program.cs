@@ -19,9 +19,8 @@ namespace BooksDB_WinForms_MVP
             ApplicationConfiguration.Initialize();
 
             string sqlConnectionString = ConfigurationManager.ConnectionStrings["SQLBOOKSDB"].ConnectionString;
-            ITitleView view = new TitleView();
-            ITitleRepository repository = new TitleRepository(sqlConnectionString);
-            new TitlePresenter(view, repository);
+            IMainView view = new MainView();
+            new MainPresenter(view, sqlConnectionString);
             Application.Run((Form)view);
         }
     }

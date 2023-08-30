@@ -29,9 +29,11 @@
         private void InitializeComponent()
         {
             pnlHeader = new Panel();
+            btnCloseTitleView = new Button();
             lblHeader = new Label();
             tabTitle = new TabControl();
             tabTitleDetailPage = new TabPage();
+            cmbPublisherName = new ComboBox();
             label8 = new Label();
             btnCancel = new Button();
             btnSave = new Button();
@@ -68,12 +70,23 @@
             // pnlHeader
             // 
             pnlHeader.BackColor = Color.FromArgb(128, 255, 255);
+            pnlHeader.Controls.Add(btnCloseTitleView);
             pnlHeader.Controls.Add(lblHeader);
             pnlHeader.Dock = DockStyle.Top;
             pnlHeader.Location = new Point(0, 0);
             pnlHeader.Name = "pnlHeader";
-            pnlHeader.Size = new Size(884, 44);
+            pnlHeader.Size = new Size(908, 44);
             pnlHeader.TabIndex = 0;
+            // 
+            // btnCloseTitleView
+            // 
+            btnCloseTitleView.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnCloseTitleView.Location = new Point(809, 7);
+            btnCloseTitleView.Name = "btnCloseTitleView";
+            btnCloseTitleView.Size = new Size(39, 29);
+            btnCloseTitleView.TabIndex = 1;
+            btnCloseTitleView.Text = "X";
+            btnCloseTitleView.UseVisualStyleBackColor = true;
             // 
             // lblHeader
             // 
@@ -93,12 +106,13 @@
             tabTitle.Location = new Point(0, 44);
             tabTitle.Name = "tabTitle";
             tabTitle.SelectedIndex = 0;
-            tabTitle.Size = new Size(884, 417);
+            tabTitle.Size = new Size(908, 417);
             tabTitle.TabIndex = 1;
             // 
             // tabTitleDetailPage
             // 
             tabTitleDetailPage.BackColor = Color.Linen;
+            tabTitleDetailPage.Controls.Add(cmbPublisherName);
             tabTitleDetailPage.Controls.Add(label8);
             tabTitleDetailPage.Controls.Add(btnCancel);
             tabTitleDetailPage.Controls.Add(btnSave);
@@ -121,9 +135,17 @@
             tabTitleDetailPage.Location = new Point(4, 30);
             tabTitleDetailPage.Name = "tabTitleDetailPage";
             tabTitleDetailPage.Padding = new Padding(3);
-            tabTitleDetailPage.Size = new Size(876, 383);
+            tabTitleDetailPage.Size = new Size(900, 383);
             tabTitleDetailPage.TabIndex = 0;
             tabTitleDetailPage.Text = "Title Detail";
+            // 
+            // cmbPublisherName
+            // 
+            cmbPublisherName.FormattingEnabled = true;
+            cmbPublisherName.Location = new Point(353, 109);
+            cmbPublisherName.Name = "cmbPublisherName";
+            cmbPublisherName.Size = new Size(515, 29);
+            cmbPublisherName.TabIndex = 16;
             // 
             // label8
             // 
@@ -283,10 +305,10 @@
             tabTitleListPage.Controls.Add(btnSearch);
             tabTitleListPage.Controls.Add(txtSearch);
             tabTitleListPage.Controls.Add(lblSearchTitle);
-            tabTitleListPage.Location = new Point(4, 30);
+            tabTitleListPage.Location = new Point(4, 24);
             tabTitleListPage.Name = "tabTitleListPage";
             tabTitleListPage.Padding = new Padding(3);
-            tabTitleListPage.Size = new Size(876, 383);
+            tabTitleListPage.Size = new Size(900, 389);
             tabTitleListPage.TabIndex = 1;
             tabTitleListPage.Text = "Title List";
             // 
@@ -332,7 +354,7 @@
             dgrdTitleList.Name = "dgrdTitleList";
             dgrdTitleList.ReadOnly = true;
             dgrdTitleList.RowTemplate.Height = 25;
-            dgrdTitleList.Size = new Size(677, 218);
+            dgrdTitleList.Size = new Size(677, 212);
             dgrdTitleList.TabIndex = 3;
             // 
             // btnSearch
@@ -366,12 +388,11 @@
             // 
             AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(884, 461);
+            ClientSize = new Size(908, 461);
             Controls.Add(tabTitle);
             Controls.Add(pnlHeader);
             Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             Margin = new Padding(4);
-            MinimumSize = new Size(900, 500);
             Name = "TitleView";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "TitleView";
@@ -418,5 +439,7 @@
         private Button btnSave;
         private Label label8;
         private TextBox txtPubID;
+        private Button btnCloseTitleView;
+        private ComboBox cmbPublisherName;
     }
 }

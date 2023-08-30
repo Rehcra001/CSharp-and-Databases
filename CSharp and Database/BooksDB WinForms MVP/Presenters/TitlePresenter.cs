@@ -1,4 +1,5 @@
-﻿using BooksDB_WinForms_MVP.Views;
+﻿using BooksDB_WinForms_MVP.Presenters.Common;
+using BooksDB_WinForms_MVP.Views;
 using DataAccess.Interfaces;
 using DataAccess.Models;
 using System;
@@ -14,15 +15,20 @@ namespace BooksDB_WinForms_MVP.Presenters
     public class TitlePresenter
     {
         private ITitleView _view;
-        private ITitleRepository _repository;
+        private ITitleRepository _titleRepository;
+        private IPublisherRepository _publisherRepository;
         private BindingSource _titleBindingSource;
+        private BindingSource _publisherBindingSource;
         private IEnumerable<TitleModel> _titleList;
+        private IEnumerable<PublisherModel> _publisherList;
 
-        public TitlePresenter(ITitleView view, ITitleRepository repository)
+        public TitlePresenter(ITitleView view, ITitleRepository titleRepository, IPublisherRepository publisherRepository)
         {
             this._titleBindingSource = new BindingSource();
+            this._publisherBindingSource = new BindingSource();
             _view = view;
-            _repository = repository;
+            _titleRepository = titleRepository;
+            _publisherRepository = publisherRepository;
 
             //Subscribe event handler methods to view events
             this._view.SearchEvent += SearchTitle;
@@ -34,14 +40,18 @@ namespace BooksDB_WinForms_MVP.Presenters
 
 
             //Set title binding source
-            this._view.SetTitleBindingSource(_titleBindingSource);
+            this._view.SetTitleBindingSource(_titleBindingSource, _publisherBindingSource);
             //Lasd title list
             LoadAllTitles();
+            this._view.Show();
         }
         private void LoadAllTitles()
         {
-            _titleList = _repository.GetAll();
+            _titleList = _titleRepository.GetAll();
             _titleBindingSource.DataSource = _titleList;
+
+            _publisherList = _publisherRepository.GetAll().OrderBy(x => x.Name);
+            _publisherBindingSource.DataSource = _publisherList;
         }
 
         private void SearchTitle(object? sender, EventArgs e)
@@ -49,11 +59,11 @@ namespace BooksDB_WinForms_MVP.Presenters
             bool emptyValue = string.IsNullOrWhiteSpace(this._view.SearchValue);
             if (emptyValue == false)
             {
-                _titleList = _repository.GetByValue(this._view.SearchValue);
+                _titleList = _titleRepository.GetByValue(this._view.SearchValue);
             }
             else
             {
-                _titleList = _repository.GetAll();
+                _titleList = _titleRepository.GetAll();
             }
             _titleBindingSource.DataSource = _titleList;
         }
@@ -73,7 +83,7 @@ namespace BooksDB_WinForms_MVP.Presenters
             _view.Description = title.Description;
             _view.Notes = title.Notes;
             _view.Subject = title.Subject;
-            _view.Comment = title.Comments;
+            _view.Comments = title.Comments;
             _view.IsEdit = true;
         }
 
@@ -81,24 +91,25 @@ namespace BooksDB_WinForms_MVP.Presenters
         {
             TitleModel model = new TitleModel();
             model.Title = _view.Title;
-            model.Year_Published = Convert.ToInt32(_view.Year_Published);
+            model.Year_Published = int.TryParse(_view.Year_Published, out _) ? Convert.ToInt32(_view.Year_Published) : 0;
             model.ISBN = _view.ISBN;
-            model.PubID = Convert.ToInt32(_view.PubID);
+            model.PubID = int.TryParse(_view.PubID, out _) ? Convert.ToInt32(_view.PubID) : 0;
             model.Description = _view.Description;
             model.Notes = _view.Notes;
             model.Subject = _view.Subject;
-            model.Comments = _view.Comment;
+            model.Comments = _view.Comments;
             //catch errors
             try
             {
+                new ModelValidation().Validate(model);
                 if (_view.IsEdit)
                 {
-                    _repository.Edit(model);
+                    _titleRepository.Edit(model);
                     _view.Message = "Edit was successful.";
                 }
                 else
                 {
-                    _repository.Add(model);
+                    _titleRepository.Add(model);
                     _view.Message = "Add was successful";
                 }
                 _view.IsSuccessful = true;
@@ -116,6 +127,7 @@ namespace BooksDB_WinForms_MVP.Presenters
         private void CancelAction(object? sender, EventArgs e)
         {
             CleanFields();
+            LoadAllTitles();
         }
 
         private void CleanFields()
@@ -127,7 +139,7 @@ namespace BooksDB_WinForms_MVP.Presenters
             _view.Description = "";
             _view.Notes = "";
             _view.Subject = "";
-            _view.Comment = "";
+            _view.Comments = "";
         }
 
         private void DeleteSelectedTitle(object? sender, EventArgs e)
@@ -135,7 +147,7 @@ namespace BooksDB_WinForms_MVP.Presenters
             try
             {
                 TitleModel title = (TitleModel)_titleBindingSource.Current;
-                _repository.Delete(title.ISBN);
+                _titleRepository.Delete(title.ISBN);
                 _view.IsSuccessful = true;
                 _view.Message = "Delete was successful";
                 LoadAllTitles();

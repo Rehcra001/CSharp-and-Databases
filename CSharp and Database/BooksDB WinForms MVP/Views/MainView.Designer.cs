@@ -28,12 +28,63 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "MainView";
+            pnlMenu = new Panel();
+            btnOpenPublishersView = new Button();
+            btnOpenTitleView = new Button();
+            pnlMenu.SuspendLayout();
+            SuspendLayout();
+            // 
+            // pnlMenu
+            // 
+            pnlMenu.Controls.Add(btnOpenPublishersView);
+            pnlMenu.Controls.Add(btnOpenTitleView);
+            pnlMenu.Dock = DockStyle.Left;
+            pnlMenu.Location = new Point(0, 0);
+            pnlMenu.Margin = new Padding(4);
+            pnlMenu.Name = "pnlMenu";
+            pnlMenu.Size = new Size(139, 690);
+            pnlMenu.TabIndex = 0;
+            // 
+            // btnOpenPublishersView
+            // 
+            btnOpenPublishersView.Location = new Point(10, 99);
+            btnOpenPublishersView.Margin = new Padding(4);
+            btnOpenPublishersView.Name = "btnOpenPublishersView";
+            btnOpenPublishersView.Size = new Size(122, 32);
+            btnOpenPublishersView.TabIndex = 0;
+            btnOpenPublishersView.Text = "Publishers";
+            btnOpenPublishersView.UseVisualStyleBackColor = true;
+            // 
+            // btnOpenTitleView
+            // 
+            btnOpenTitleView.Location = new Point(10, 35);
+            btnOpenTitleView.Margin = new Padding(4);
+            btnOpenTitleView.Name = "btnOpenTitleView";
+            btnOpenTitleView.Size = new Size(122, 32);
+            btnOpenTitleView.TabIndex = 0;
+            btnOpenTitleView.Text = "Titles";
+            btnOpenTitleView.UseVisualStyleBackColor = true;
+            // 
+            // MainView
+            // 
+            AutoScaleDimensions = new SizeF(9F, 21F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(1097, 690);
+            Controls.Add(pnlMenu);
+            Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            IsMdiContainer = true;
+            Margin = new Padding(4);
+            Name = "MainView";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "MainView";
+            pnlMenu.ResumeLayout(false);
+            ResumeLayout(false);
         }
 
         #endregion
+
+        private Panel pnlMenu;
+        private Button btnOpenTitleView;
+        private Button btnOpenPublishersView;
     }
 }
