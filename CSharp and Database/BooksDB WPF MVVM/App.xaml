@@ -19,5 +19,9 @@
 		<DataTemplate DataType="{x:Type TypeName=viewModel:AddTitleViewModel}">
 			<view:AddEditView/>
 		</DataTemplate>
+
+        <DataTemplate DataType="{x:Type TypeName=viewModel:PublisherViewModel}">
+            <view:PublisherView/>
+        </DataTemplate>
     </Application.Resources>
 </Application>
