@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BooksDB_WPF_MVVM.Views"
         mc:Ignorable="d"
-        Title="MainView" Height="450" Width="800"
+        Title="MainView" Height="700" Width="1000"
         Background="#FF00FFFF"
         WindowStartupLocation="CenterScreen">
     <Grid>
@@ -13,7 +13,7 @@
             <ColumnDefinition Width="100" />
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        
+
         <Border BorderBrush="DarkGreen" BorderThickness="2" >
             <StackPanel Grid.Column="0" Background="DarkCyan" Orientation="Vertical">
 
@@ -21,11 +21,16 @@
                         Margin="5, 20, 5, 0"
                         Height="30"
                         Command="{Binding NavigateToTitleViewCommand}"/>
+
+                <Button Content="Publishers"
+                        Margin="5, 20, 5, 0"
+                        Height="30"
+                        Command="{Binding NavigateToPublisherViewCommand}"/>
             </StackPanel>
         </Border>
 
         <ContentControl Grid.Column="1" Content="{Binding Navigation.CurrentView}">
-            
+
         </ContentControl>
     </Grid>
 </Window>

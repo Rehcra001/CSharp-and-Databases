@@ -1,0 +1,169 @@
+﻿<UserControl x:Class="BooksDB_WPF_MVVM.Views.PublisherView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BooksDB_WPF_MVVM.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="900"
+             Background="#FF00FFFF">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="150"/>
+        </Grid.RowDefinitions>
+
+
+        <ListView Grid.Column="0" 
+                  Grid.Row="0"
+                  Grid.RowSpan="2"
+                  ItemsSource="{Binding Publishers}"  
+                  SelectedItem="{Binding Publisher}" 
+                  SelectedIndex="{Binding GridIndex}"
+                  IsEnabled="{Binding GridEnabled}">
+            <ListView.View>
+                <GridView x:Name="PubList" >
+                    <GridViewColumn Header="PubID" DisplayMemberBinding="{Binding PubID}"/>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <StackPanel Orientation="Vertical" Grid.Column="1" Margin="20,50,0,0">
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Publisher ID" Width="100" Margin="5"/>
+                <TextBox Text="{Binding Publisher.PubID}" MinWidth="200" VerticalAlignment="Center"
+                               HorizontalAlignment="Left" IsReadOnly="True"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Name" Width="100" Margin="5"/>
+                <TextBox Text="{Binding Publisher.Name, NotifyOnSourceUpdated=True}" MinWidth="200" VerticalAlignment="Center"
+                         HorizontalAlignment="Left" IsReadOnly="{Binding IsReadOnly}"
+                         />
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Company Name" Width="100" Margin="5"/>
+                <TextBox Text="{Binding Publisher.Company_Name, NotifyOnSourceUpdated=True}" MinWidth="200" VerticalAlignment="Center"
+                         HorizontalAlignment="Left" IsReadOnly="{Binding IsReadOnly}"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Address" Width="100" Margin="5"/>
+                <TextBox Text="{Binding Publisher.Address}" MinWidth="200" VerticalAlignment="Center"
+                               HorizontalAlignment="Left" IsReadOnly="{Binding IsReadOnly}"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <Label Content="City" Width="100" Margin="5"/>
+                <TextBox Text="{Binding Publisher.City}" MinWidth="200" VerticalAlignment="Center"
+                               HorizontalAlignment="Left" IsReadOnly="{Binding IsReadOnly}"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <Label Content="State" Width="100" Margin="5"/>
+                <TextBox Text="{Binding Publisher.State}" MinWidth="200" VerticalAlignment="Center"
+                               HorizontalAlignment="Left" IsReadOnly="{Binding IsReadOnly}"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Zip" Width="100" Margin="5"/>
+                <TextBox Text="{Binding Publisher.Zip}" MinWidth="200" VerticalAlignment="Center"
+                               HorizontalAlignment="Left" IsReadOnly="{Binding IsReadOnly}"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Telephone" Width="100" Margin="5"/>
+                <TextBox Text="{Binding Publisher.Telephone}" MinWidth="200" VerticalAlignment="Center"
+                               HorizontalAlignment="Left" IsReadOnly="{Binding IsReadOnly}"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Fax" Width="100" Margin="5"/>
+                <TextBox Text="{Binding Publisher.Fax}" MinWidth="200" VerticalAlignment="Center"
+                               HorizontalAlignment="Left" IsReadOnly="{Binding IsReadOnly}"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Comments" Width="100" Margin="5"/>
+                <TextBox Text="{Binding Publisher.Comments}" MinWidth="200" VerticalAlignment="Center"
+                               HorizontalAlignment="Left" IsReadOnly="{Binding IsReadOnly}"/>
+            </StackPanel>
+
+
+        </StackPanel>
+
+        <StackPanel Grid.Column="1"
+                    Grid.Row="1"
+                    Orientation="Vertical">
+            <StackPanel 
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"                    
+                    Margin="50,5">
+                <Button Content="First" 
+                        Command="{Binding FirstRecordCommand}" 
+                        Width="75" Margin="5"/>
+
+                <Button Content="Previous" 
+                        Command="{Binding PreviousRecordCommand}" 
+                        Width="75" Margin="5"/>
+
+                <Button Content="Next" 
+                        Command="{Binding NextRecordCommand}" 
+                        Width="75" Margin="5"/>
+
+                <Button Content="Last" 
+                        Command="{Binding LastRecordCommand}" 
+                        Width="75" Margin="5"/>
+            </StackPanel>
+            
+            <StackPanel 
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"                    
+                    Margin="50,5">
+                <Button Content="Add New" 
+                        Command="{Binding AddNewPublisherCommand}" 
+                        Width="75" Margin="5"/>
+
+                <Button Content="Edit" 
+                        Command="{Binding EditPublisherCommand}" 
+                        Width="75" Margin="5"/>
+
+                <Button Content="Delete" 
+                        Command="{Binding DeletePublisherCommand}" 
+                        Width="75" Margin="5"/>
+
+                <!--<Button Content="Last" 
+                        Command="{Binding LastRecordCommand}" 
+                        Width="75" Margin="5"/>-->
+            </StackPanel>
+
+            <StackPanel 
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"                    
+                    Margin="50,5">
+                <Button Content="Save" 
+                        Command="{Binding SavePublisherCommand}" 
+                        Width="75" Margin="5"/>
+
+                <Button Content="Cancel" 
+                        Command="{Binding CancelCommand}" 
+                        Width="75" Margin="5"/>
+
+                <TextBox Width="200" Margin="5" Text="{Binding SearchValue}" IsEnabled="{Binding IsReadOnly}"/>
+                <Button Content="Search" 
+                        Command="{Binding SearchCommand}" 
+                        Width="75" Margin="5"/>
+            </StackPanel>
+        </StackPanel>
+
+    </Grid>
+</UserControl>

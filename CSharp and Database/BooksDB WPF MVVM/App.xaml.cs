@@ -26,6 +26,7 @@ namespace BooksDB_WPF_MVVM
             services.AddTransient<TitleViewModel>();
             services.AddTransient<EditTitleViewModel>();
             services.AddTransient<AddTitleViewModel>();
+            services.AddTransient<PublisherViewModel>();
 
             //Services
             services.AddSingleton<INavigationService, NavigationService>();
