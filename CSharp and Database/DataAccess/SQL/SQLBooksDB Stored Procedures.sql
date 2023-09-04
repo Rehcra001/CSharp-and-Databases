@@ -164,7 +164,7 @@ BEGIN
 END;
 GO
 
---******Authors******
+--******Authors****************************************************************************
 ALTER PROCEDURE dbo.usp_GetAuthors AS
 BEGIN
 	SET NOCOUNT ON;
@@ -260,6 +260,28 @@ BEGIN
 
 	BEGIN CATCH
 		SELECT ERROR_MESSAGE();
+	END CATCH;
+END;
+GO
+
+ALTER PROCEDURE dbo.usp_GetAuthorsPerTitle
+(
+	@ISBN NVARCHAR(20)
+)AS
+BEGIN
+	BEGIN TRY
+		;WITH CTE AS (
+			SELECT Au_ID
+			FROM dbo.Title_Author
+			WHERE ISBN = @ISBN
+		)
+		SELECT Au_ID, Author, Year_Born
+		FROM Authors as au
+		WHERE au.Au_ID IN (SELECT Au_ID FROM CTE);
+	END TRY
+
+	BEGIN CATCH
+		SELECT ERROR_MESSAGE() AS Message;
 	END CATCH;
 END;
 GO
