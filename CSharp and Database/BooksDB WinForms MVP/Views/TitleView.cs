@@ -88,6 +88,16 @@ namespace BooksDB_WinForms_MVP.Views
                     MessageBox.Show(Message);
                 }
             };
+
+            btnAddAuthor.Click += delegate
+            {
+                AddAuthorEvent?.Invoke(this, EventArgs.Empty);
+            };
+
+            btnRemoveAuthor.Click += delegate
+            {
+                RemoveAuthorEvent?.Invoke(this, EventArgs.Empty);
+            };
         }
 
 
@@ -110,8 +120,11 @@ namespace BooksDB_WinForms_MVP.Views
         public event EventHandler DeleteEvent;
         public event EventHandler SaveEvent;
         public event EventHandler CancelEvent;
+        public event EventHandler AddAuthorEvent;
+        public event EventHandler RemoveAuthorEvent;
 
-        public void SetTitleBindingSource(BindingSource titleList, BindingSource publisherList)
+        public void SetTitleBindingSource(BindingSource titleList, BindingSource publisherList, 
+                                          BindingSource authorList, BindingSource selectedAuthorList)
         {
             dgrdTitleList.DataSource = titleList;
             cmbPublisherName.DataSource = publisherList;
@@ -119,6 +132,10 @@ namespace BooksDB_WinForms_MVP.Views
             cmbPublisherName.ValueMember = "PubID";
             cmbPublisherName.DataBindings.Add("SelectedValue", titleList, "PubID");
             txtPubID.DataBindings.Add("Text", publisherList, "PubID");
+            cmbAuthorList.DataSource = authorList;
+            cmbAuthorList.DisplayMember = "Author";
+            lstAuthors.DataSource = selectedAuthorList;
+            lstAuthors.DisplayMember = "Author";
         }
 
         public static TitleView? _instance;
@@ -141,7 +158,5 @@ namespace BooksDB_WinForms_MVP.Views
             }
             return _instance;
         }
-
-
     }
 }

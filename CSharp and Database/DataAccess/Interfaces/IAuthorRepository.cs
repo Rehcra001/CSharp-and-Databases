@@ -15,6 +15,6 @@ namespace DataAccess.Interfaces
         IEnumerable<AuthorModel> GetAll();
         IEnumerable<AuthorModel> GetByValue(string searchValue);
         AuthorModel GetAuthorByID(int id);
-        AuthorModel GetAuthorByISBN(string ISBN);
+        IEnumerable<AuthorModel>  GetAuthorsByISBN(string ISBN);
     }
 }

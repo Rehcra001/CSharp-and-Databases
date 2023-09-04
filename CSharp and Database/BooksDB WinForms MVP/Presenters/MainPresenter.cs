@@ -43,8 +43,10 @@ namespace BooksDB_WinForms_MVP.Presenters
             {
                 ITitleView view = TitleView.GetInstance((Form)_mainView);
                 ITitleRepository titleRepository = new TitleRepository(_sqlConnection);
+                IAuthorRepository authorRepository = new AuthorRepository(_sqlConnection);
                 IPublisherRepository publisherRepository = new PublisherRepository(_sqlConnection);
-                new TitlePresenter(view, titleRepository, publisherRepository);
+                ITitleAuthorRepository titleAuthorRepository = new TitleAuthorRepository(_sqlConnection);
+                new TitlePresenter(view, titleRepository, publisherRepository, authorRepository, titleAuthorRepository);
             }
             else
             {

@@ -60,6 +60,10 @@
             btnSearch = new Button();
             txtSearch = new TextBox();
             lblSearchTitle = new Label();
+            lstAuthors = new ListBox();
+            cmbAuthorList = new ComboBox();
+            btnAddAuthor = new Button();
+            btnRemoveAuthor = new Button();
             pnlHeader.SuspendLayout();
             tabTitle.SuspendLayout();
             tabTitleDetailPage.SuspendLayout();
@@ -106,12 +110,16 @@
             tabTitle.Location = new Point(0, 44);
             tabTitle.Name = "tabTitle";
             tabTitle.SelectedIndex = 0;
-            tabTitle.Size = new Size(908, 417);
+            tabTitle.Size = new Size(908, 592);
             tabTitle.TabIndex = 1;
             // 
             // tabTitleDetailPage
             // 
             tabTitleDetailPage.BackColor = Color.Linen;
+            tabTitleDetailPage.Controls.Add(btnRemoveAuthor);
+            tabTitleDetailPage.Controls.Add(btnAddAuthor);
+            tabTitleDetailPage.Controls.Add(cmbAuthorList);
+            tabTitleDetailPage.Controls.Add(lstAuthors);
             tabTitleDetailPage.Controls.Add(cmbPublisherName);
             tabTitleDetailPage.Controls.Add(label8);
             tabTitleDetailPage.Controls.Add(btnCancel);
@@ -135,7 +143,7 @@
             tabTitleDetailPage.Location = new Point(4, 30);
             tabTitleDetailPage.Name = "tabTitleDetailPage";
             tabTitleDetailPage.Padding = new Padding(3);
-            tabTitleDetailPage.Size = new Size(900, 383);
+            tabTitleDetailPage.Size = new Size(900, 558);
             tabTitleDetailPage.TabIndex = 0;
             tabTitleDetailPage.Text = "Title Detail";
             // 
@@ -158,7 +166,7 @@
             // 
             // btnCancel
             // 
-            btnCancel.Location = new Point(527, 348);
+            btnCancel.Location = new Point(527, 498);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(75, 29);
             btnCancel.TabIndex = 14;
@@ -167,7 +175,7 @@
             // 
             // btnSave
             // 
-            btnSave.Location = new Point(282, 348);
+            btnSave.Location = new Point(282, 498);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(75, 29);
             btnSave.TabIndex = 14;
@@ -176,7 +184,7 @@
             // 
             // txtComments
             // 
-            txtComments.Location = new Point(163, 289);
+            txtComments.Location = new Point(163, 439);
             txtComments.Multiline = true;
             txtComments.Name = "txtComments";
             txtComments.ScrollBars = ScrollBars.Vertical;
@@ -185,21 +193,21 @@
             // 
             // txtSubject
             // 
-            txtSubject.Location = new Point(163, 246);
+            txtSubject.Location = new Point(163, 396);
             txtSubject.Name = "txtSubject";
             txtSubject.Size = new Size(705, 29);
             txtSubject.TabIndex = 12;
             // 
             // txtNotes
             // 
-            txtNotes.Location = new Point(163, 203);
+            txtNotes.Location = new Point(163, 353);
             txtNotes.Name = "txtNotes";
             txtNotes.Size = new Size(705, 29);
             txtNotes.TabIndex = 11;
             // 
             // txtDescription
             // 
-            txtDescription.Location = new Point(163, 160);
+            txtDescription.Location = new Point(163, 310);
             txtDescription.Name = "txtDescription";
             txtDescription.Size = new Size(705, 29);
             txtDescription.TabIndex = 10;
@@ -235,7 +243,7 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(33, 293);
+            label7.Location = new Point(33, 443);
             label7.Name = "label7";
             label7.Size = new Size(86, 21);
             label7.TabIndex = 6;
@@ -244,7 +252,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(33, 250);
+            label6.Location = new Point(33, 400);
             label6.Name = "label6";
             label6.Size = new Size(61, 21);
             label6.TabIndex = 5;
@@ -253,7 +261,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(33, 207);
+            label5.Location = new Point(33, 357);
             label5.Name = "label5";
             label5.Size = new Size(51, 21);
             label5.TabIndex = 4;
@@ -262,7 +270,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(33, 164);
+            label4.Location = new Point(33, 314);
             label4.Name = "label4";
             label4.Size = new Size(89, 21);
             label4.TabIndex = 3;
@@ -384,11 +392,46 @@
             lblSearchTitle.TabIndex = 0;
             lblSearchTitle.Text = "Search Title";
             // 
+            // lstAuthors
+            // 
+            lstAuthors.FormattingEnabled = true;
+            lstAuthors.ItemHeight = 21;
+            lstAuthors.Location = new Point(164, 195);
+            lstAuthors.Name = "lstAuthors";
+            lstAuthors.Size = new Size(364, 109);
+            lstAuthors.TabIndex = 17;
+            // 
+            // cmbAuthorList
+            // 
+            cmbAuthorList.FormattingEnabled = true;
+            cmbAuthorList.Location = new Point(164, 159);
+            cmbAuthorList.Name = "cmbAuthorList";
+            cmbAuthorList.Size = new Size(196, 29);
+            cmbAuthorList.TabIndex = 18;
+            // 
+            // btnAddAuthor
+            // 
+            btnAddAuthor.Location = new Point(366, 160);
+            btnAddAuthor.Name = "btnAddAuthor";
+            btnAddAuthor.Size = new Size(162, 29);
+            btnAddAuthor.TabIndex = 19;
+            btnAddAuthor.Text = "Add Selected Author";
+            btnAddAuthor.UseVisualStyleBackColor = true;
+            // 
+            // btnRemoveAuthor
+            // 
+            btnRemoveAuthor.Location = new Point(534, 232);
+            btnRemoveAuthor.Name = "btnRemoveAuthor";
+            btnRemoveAuthor.Size = new Size(194, 29);
+            btnRemoveAuthor.TabIndex = 19;
+            btnRemoveAuthor.Text = "Remove Selected Author";
+            btnRemoveAuthor.UseVisualStyleBackColor = true;
+            // 
             // TitleView
             // 
             AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(908, 461);
+            ClientSize = new Size(908, 636);
             Controls.Add(tabTitle);
             Controls.Add(pnlHeader);
             Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
@@ -441,5 +484,9 @@
         private TextBox txtPubID;
         private Button btnCloseTitleView;
         private ComboBox cmbPublisherName;
+        private Button btnRemoveAuthor;
+        private Button btnAddAuthor;
+        private ComboBox cmbAuthorList;
+        private ListBox lstAuthors;
     }
 }

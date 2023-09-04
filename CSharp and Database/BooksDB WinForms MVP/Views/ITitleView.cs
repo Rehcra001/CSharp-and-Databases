@@ -29,9 +29,11 @@ namespace BooksDB_WinForms_MVP.Views
         event EventHandler DeleteEvent;
         event EventHandler SaveEvent;
         event EventHandler CancelEvent;
+        event EventHandler AddAuthorEvent;
+        event EventHandler RemoveAuthorEvent;
 
         //Methods
-        void SetTitleBindingSource(BindingSource titleList, BindingSource pulisherList);
+        void SetTitleBindingSource(BindingSource titleList, BindingSource pulisherList, BindingSource authorList, BindingSource selectedAuthorList);
         void Show();
     }
 }

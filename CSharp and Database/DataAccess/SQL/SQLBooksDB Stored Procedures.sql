@@ -164,6 +164,7 @@ BEGIN
 END;
 GO
 
+
 --******Authors****************************************************************************
 ALTER PROCEDURE dbo.usp_GetAuthors AS
 BEGIN
@@ -451,3 +452,67 @@ BEGIN
 	RETURN 0;
 END;
 GO
+--**************Title_Author Table**************************************
+ALTER PROCEDURE dbo.usp_AddTitleAuthor
+(
+	@ISBN NVARCHAR(20),
+	@Au_ID INT
+)AS
+BEGIN
+	BEGIN TRY
+		BEGIN TRAN
+			SET NOCOUNT ON;
+
+			INSERT INTO dbo.Title_Author (ISBN, Au_ID)
+			VALUES (@ISBN, @Au_ID);
+		COMMIT TRAN
+	END TRY
+
+	BEGIN CATCH
+		ROLLBACK TRAN
+		SELECT ERROR_MESSAGE() AS Message;
+	END CATCH;
+END;
+GO
+
+ALTER PROCEDURE dbo.usp_DeleteTitleAuthor
+(
+	@ISBN NVARCHAR(20),
+	@Au_ID INT
+)AS
+BEGIN
+	BEGIN TRY
+		BEGIN TRAN
+			SET NOCOUNT ON;
+
+			DELETE FROM dbo.Title_Author
+			WHERE ISBN = @ISBN AND Au_ID = @Au_ID;
+		COMMIT TRAN
+	END TRY
+
+	BEGIN CATCH
+		ROLLBACK TRAN;
+		SELECT ERROR_MESSAGE() AS Message;
+	END CATCH;
+END;
+GO
+
+ALTER PROCEDURE dbo.usp_DeleteTitleAuthorByISBN
+(
+	@ISBN NVARCHAR(20)
+)AS
+BEGIN
+	BEGIN TRY
+		BEGIN TRAN
+			SET NOCOUNT ON;
+
+			DELETE FROM dbo.Title_Author
+			WHERE ISBN = @ISBN
+		COMMIT TRAN
+	END TRY
+
+	BEGIN CATCH
+		ROLLBACK TRAN;
+		SELECT ERROR_MESSAGE() AS Message;
+	END CATCH;
+END;
