@@ -55,6 +55,7 @@
                   Grid.Column="0"
                   Grid.Row="2"
                   ItemsSource="{Binding Titles}" 
+                  SelectedIndex="{Binding TitleIndex}"
                   AutoGenerateColumns="True"
                   ColumnWidth="150"
                   SelectionMode="Single"/>

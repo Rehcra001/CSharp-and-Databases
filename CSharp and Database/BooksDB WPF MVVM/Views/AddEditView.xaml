@@ -4,10 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BooksDB_WPF_MVVM.Views"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800"
+             mc:Ignorable="d" d:DesignWidth="900"
              Background="#FF00FFFF"
-             FontSize="20">
+             FontSize="20" Height="519">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="150"/>
@@ -23,7 +22,9 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Label Content="{Binding FormHeader}" 
@@ -87,42 +88,75 @@
             </ComboBox>
         </StackPanel>
 
-        <Label Content="Description" Grid.Column="0" Grid.Row="4"/>
+        <Label Content="Authors" Grid.Column="0" Grid.Row="4"/>
+        <StackPanel Grid.Column="1" Grid.Row="4" Orientation="Horizontal">
+            <ListBox x:Name="authors" ItemsSource="{Binding Authors}"                      
+                      Margin="5" Width="200" HorizontalAlignment="Left"
+                      Height="150" VerticalAlignment="Top"
+                      SelectedIndex="{Binding AuthorsIndex}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Author}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+
+            </ListBox>
+            <Button Content="Add Author" Margin="5" Height="32.6"
+                    VerticalAlignment="Center" Command="{Binding AddAuthorCommand}"/>
+            
+            <ListBox SelectionMode="Single" Width="200" Height="150"
+                     Margin="5" 
+                     ItemsSource="{Binding SelectedAuthors}"
+                     SelectedIndex="{Binding SelectedAuthorsIndex}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Author}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>                    
+            </ListBox>
+            
+            <Button Content="Remove Author" Margin="5" Height="32.6"
+                    VerticalAlignment="Center" Command="{Binding RemoveAuthorCommand}"/>
+        </StackPanel>
+
+
+        <Label Content="Description" Grid.Column="0" Grid.Row="6"/>
         <TextBox Text="{Binding Title.Description}"
-         Grid.Column="1"
-         Grid.Row="4"
-         Margin="0,5,5,5"/>
-
-        <Label Content="Notes" Grid.Column="0" Grid.Row="5"/>
-        <TextBox Text="{Binding Title.Notes}"
-         Grid.Column="1"
-         Grid.Row="5"
-         Margin="0,5,5,5"/>
-
-        <Label Content="Subject" Grid.Column="0" Grid.Row="6"/>
-        <TextBox Text="{Binding Title.Subject}"
          Grid.Column="1"
          Grid.Row="6"
          Margin="0,5,5,5"/>
 
-        <Label Content="Comments" Grid.Column="0" Grid.Row="7"/>
-        <TextBox Text="{Binding Title.Comments}"
+        <Label Content="Notes" Grid.Column="0" Grid.Row="7"/>
+        <TextBox Text="{Binding Title.Notes}"
          Grid.Column="1"
          Grid.Row="7"
          Margin="0,5,5,5"/>
 
+        <Label Content="Subject" Grid.Column="0" Grid.Row="8"/>
+        <TextBox Text="{Binding Title.Subject}"
+         Grid.Column="1"
+         Grid.Row="8"
+         Margin="0,5,5,5"/>
+
+        <Label Content="Comments" Grid.Column="0" Grid.Row="9"/>
+        <TextBox Text="{Binding Title.Comments}"
+         Grid.Column="1"
+         Grid.Row="9"
+         Margin="0,5,5,5"/>
+
         <StackPanel Grid.Column="0"
-                    Grid.Row="8"
+                    Grid.Row="10"
                     Grid.ColumnSpan="2"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    Orientation="Horizontal">
-            
+                    Orientation="Horizontal"
+                    Height="40">
+
             <Button Content="Save"
                     Margin="5"
                     Width="75"
                     Command="{Binding SaveTitleCommand}"/>
-            
+
             <Button Content="Cancel"
                     Margin="5"
                     Width="75"

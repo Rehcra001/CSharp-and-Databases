@@ -31,6 +31,19 @@ namespace BooksDB_WPF_MVVM.ViewModels
             }
         }
 
+        private int _titleIndex;
+
+        public int TitleIndex
+        {
+            get { return _titleIndex; }
+            set 
+            { 
+                _titleIndex = value;
+                OnPropertyChanged();
+            }
+        }
+
+
         private INavigationService _navigation;
 
         public INavigationService Navigation
@@ -92,7 +105,11 @@ namespace BooksDB_WPF_MVVM.ViewModels
                                                           MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No);
                 if (result == MessageBoxResult.Yes)
                 {
-                    string message = _repository.Delete((string)obj);
+                    string isbn = ((string)obj);
+                    TitleModel title = Titles.First(x => x.ISBN == isbn);
+
+                    string message = _repository.Delete(isbn);
+                    new TitleAuthorRepository(GetConnectionString()).DeleteByISBN(title);
                     if (message != null)
                     {
                         MessageBox.Show(message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
